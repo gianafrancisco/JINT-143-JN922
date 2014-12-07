@@ -1,0 +1,3 @@
+LIBRO,Pepe,dd,eq,
+CATEGORIA,Default
+CATEGORIA,dddd
