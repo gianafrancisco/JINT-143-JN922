@@ -154,7 +154,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="159" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="121" max="32767" attributes="0"/>
                   <Component id="pnlCategoria" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -176,7 +176,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtNuevaCat" pref="95" max="32767" attributes="0"/>
+                          <Component id="txtNuevaCat" pref="53" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnNuevaCat" min="-2" pref="26" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>

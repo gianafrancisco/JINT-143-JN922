@@ -1,4 +1,4 @@
-package interfaz.modelos;
+package ui.models;
 
 import biblioteca.cats.Categoria;
 import biblioteca.persistencia.Archivo;

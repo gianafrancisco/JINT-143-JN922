@@ -1,30 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package interfaz;
+package ui;
 
 import biblioteca.persistencia.Archivo;
-import interfaz.gui.FrmPrincipal;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import ui.forms.MainWindows;
 
-/**
- *
- * @author Philip
- */
 public class Programa {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 
         Archivo.cargar();
 
-        try {
-            // Set cross-platform Java L&F (also called "Metal")
-            
+        try {            
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (UnsupportedLookAndFeelException e) {
             // handle exception
@@ -36,7 +23,7 @@ public class Programa {
             // handle exception
         }
 
-        FrmPrincipal form = new FrmPrincipal();
+        MainWindows form = new MainWindows();
         form.setVisible(true);
 
 

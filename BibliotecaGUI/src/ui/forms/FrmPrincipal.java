@@ -8,7 +8,7 @@
  *
  * Created on 01/06/2011, 10:14:44
  */
-package interfaz.gui;
+package ui.forms;
 
 import biblioteca.persistencia.Archivo;
 import biblioteca.cats.ListaCategoria;
@@ -19,7 +19,7 @@ import biblioteca.items.Item;
 import biblioteca.items.Libro;
 import biblioteca.items.Revista;
 import biblioteca.persistencia.Importar;
-import interfaz.modelos.ModeloItem;
+import ui.models.ModeloItem;
 import java.awt.FileDialog;
 import java.io.File;
 import java.util.LinkedList;
@@ -177,7 +177,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             pnlCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCategoriaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtNuevaCat, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addComponent(txtNuevaCat, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNuevaCat, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -203,7 +203,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
             .addComponent(pnlCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(

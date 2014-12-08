@@ -1,4 +1,4 @@
-package interfaz.modelos;
+package ui.models;
 
 import biblioteca.items.*;
 import java.util.LinkedList;

@@ -1,10 +1,10 @@
-package interfaz.gui;
+package ui.forms;
 
 import biblioteca.cats.Categoria;
 import biblioteca.cats.ListaItem;
 import biblioteca.items.Libro;
 import biblioteca.persistencia.Archivo;
-import interfaz.modelos.ListaModeloCategorias;
+import ui.models.ListaModeloCategorias;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
