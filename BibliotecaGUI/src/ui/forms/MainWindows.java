@@ -270,7 +270,7 @@ public class MainWindows extends javax.swing.JFrame {
     private void btnEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCategoriaActionPerformed
         // TODO add your handling code here:
         Categoria catEliminar = (Categoria)lstCategorias.getSelectedValue();
-        if(catEliminar != null){
+        if(catEliminar != null && !catEliminar.getNombre().equals("Default")){
             Archivo.getDatos().getCategorias().remove(catEliminar);
             Archivo.guardar();
             cargarCategorias();

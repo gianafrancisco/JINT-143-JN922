@@ -32,4 +32,9 @@ public class Categoria extends ListaItem implements Serializable {
     public String exportar(){
         return "CATEGORIA,"+nombre;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
 }
