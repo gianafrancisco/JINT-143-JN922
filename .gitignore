@@ -12,3 +12,5 @@
 hs_err_pid*
 /BibliotecaGUI/nbproject/private/
 /BibliotecaGUI/build/
+/Biblioteca/dist/
+/BibliotecaGUI/dist/

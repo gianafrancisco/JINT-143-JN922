@@ -39,6 +39,7 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void cargarCategorias() {
         lstCategorias.setModel(new ListaModeloCategorias());
+        lstCategoriasSeleccionar.setModel(new ListaModeloCategorias());
     }
 
     /**
@@ -51,35 +52,46 @@ public class MainWindows extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jPanel4 = new javax.swing.JPanel();
+        jPanelBuscar = new javax.swing.JPanel();
         lblBuscar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jSplitPaneMain = new javax.swing.JSplitPane();
+        jPanelCategorias = new javax.swing.JPanel();
+        jPanelAgregarCategorias = new javax.swing.JPanel();
         txtAgregarCategoria = new javax.swing.JTextField();
         btnAgregarCategoria = new javax.swing.JButton();
         btnEliminarCategoria = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPaneCategorias = new javax.swing.JScrollPane();
         lstCategorias = new javax.swing.JList();
-        jSplitPane2 = new javax.swing.JSplitPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jSplitPaneSecondary = new javax.swing.JSplitPane();
+        jScrollPaneItems = new javax.swing.JScrollPane();
         tblItems = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanelItems = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jTabbedPane = new javax.swing.JTabbedPane();
         jPanelLibro = new javax.swing.JPanel();
+        txtLibroTitulo = new javax.swing.JTextField();
+        txtLibroAutor = new javax.swing.JTextField();
+        txtLibroEditorial = new javax.swing.JTextField();
+        lblLibroTitulo = new javax.swing.JLabel();
+        lblLibroAutor = new javax.swing.JLabel();
+        lblEditorial = new javax.swing.JLabel();
+        btnAgregarLibro = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jPanelRevista = new javax.swing.JPanel();
         jPanelAudio = new javax.swing.JPanel();
         jPanelDVD = new javax.swing.JPanel();
+        jScrollPaneCategoriasSeleccionar = new javax.swing.JScrollPane();
+        lstCategoriasSeleccionar = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
 
-        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelBuscar.setLayout(new javax.swing.BoxLayout(jPanelBuscar, javax.swing.BoxLayout.LINE_AXIS));
 
         lblBuscar.setText("Buscar:  ");
-        jPanel4.add(lblBuscar);
+        jPanelBuscar.add(lblBuscar);
 
         txtBuscar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -88,13 +100,13 @@ public class MainWindows extends javax.swing.JFrame {
                 txtBuscarKeyTyped(evt);
             }
         });
-        jPanel4.add(txtBuscar);
+        jPanelBuscar.add(txtBuscar);
 
-        jToolBar1.add(jPanel4);
+        jToolBar1.add(jPanelBuscar);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.NORTH);
 
-        jSplitPane1.setResizeWeight(1.0);
+        jSplitPaneMain.setResizeWeight(1.0);
 
         txtAgregarCategoria.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         txtAgregarCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -117,20 +129,20 @@ public class MainWindows extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanelAgregarCategoriasLayout = new javax.swing.GroupLayout(jPanelAgregarCategorias);
+        jPanelAgregarCategorias.setLayout(jPanelAgregarCategoriasLayout);
+        jPanelAgregarCategoriasLayout.setHorizontalGroup(
+            jPanelAgregarCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAgregarCategoriasLayout.createSequentialGroup()
+                .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAgregarCategoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarCategoria)
                 .addGap(6, 6, 6))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelAgregarCategoriasLayout.setVerticalGroup(
+            jPanelAgregarCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnAgregarCategoria)
             .addComponent(btnEliminarCategoria)
@@ -147,27 +159,27 @@ public class MainWindows extends javax.swing.JFrame {
                 lstCategoriasValueChanged(evt);
             }
         });
-        jScrollPane3.setViewportView(lstCategorias);
+        jScrollPaneCategorias.setViewportView(lstCategorias);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane3)
+        javax.swing.GroupLayout jPanelCategoriasLayout = new javax.swing.GroupLayout(jPanelCategorias);
+        jPanelCategorias.setLayout(jPanelCategoriasLayout);
+        jPanelCategoriasLayout.setHorizontalGroup(
+            jPanelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelAgregarCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPaneCategorias)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanelCategoriasLayout.setVerticalGroup(
+            jPanelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCategoriasLayout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelAgregarCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                .addComponent(jScrollPaneCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setLeftComponent(jPanel2);
+        jSplitPaneMain.setLeftComponent(jPanelCategorias);
 
-        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPaneSecondary.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         tblItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -180,26 +192,78 @@ public class MainWindows extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblItems);
+        jScrollPaneItems.setViewportView(tblItems);
 
-        jSplitPane2.setTopComponent(jScrollPane2);
+        jSplitPaneSecondary.setTopComponent(jScrollPaneItems);
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelItems.setLayout(new javax.swing.BoxLayout(jPanelItems, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanelLibro.setPreferredSize(new java.awt.Dimension(892, 150));
+
+        lblLibroTitulo.setText("Titulo");
+
+        lblLibroAutor.setText("Autor");
+
+        lblEditorial.setText("Editorial");
+
+        btnAgregarLibro.setText("Agregar Libro");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/book.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanelLibroLayout = new javax.swing.GroupLayout(jPanelLibro);
         jPanelLibro.setLayout(jPanelLibroLayout);
         jPanelLibroLayout.setHorizontalGroup(
             jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+            .addGroup(jPanelLibroLayout.createSequentialGroup()
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLibroLayout.createSequentialGroup()
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelLibroLayout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(lblEditorial))
+                            .addGroup(jPanelLibroLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblLibroTitulo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblLibroAutor, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLibroTitulo)
+                            .addComponent(txtLibroAutor)
+                            .addComponent(txtLibroEditorial)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLibroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregarLibro)))
+                .addContainerGap())
         );
         jPanelLibroLayout.setVerticalGroup(
             jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 242, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLibroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelLibroLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanelLibroLayout.createSequentialGroup()
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLibroTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLibroTitulo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLibroAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLibroAutor))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLibroEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEditorial))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                        .addComponent(btnAgregarLibro)))
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Libro", jPanelLibro);
+        jTabbedPane.addTab("Libro", jPanelLibro);
 
         jPanelRevista.setPreferredSize(new java.awt.Dimension(892, 150));
 
@@ -207,14 +271,14 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelRevista.setLayout(jPanelRevistaLayout);
         jPanelRevistaLayout.setHorizontalGroup(
             jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+            .addGap(0, 215, Short.MAX_VALUE)
         );
         jPanelRevistaLayout.setVerticalGroup(
             jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 242, Short.MAX_VALUE)
+            .addGap(0, 276, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Revista", jPanelRevista);
+        jTabbedPane.addTab("Revista", jPanelRevista);
 
         jPanelAudio.setPreferredSize(new java.awt.Dimension(892, 150));
 
@@ -222,14 +286,14 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelAudio.setLayout(jPanelAudioLayout);
         jPanelAudioLayout.setHorizontalGroup(
             jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+            .addGap(0, 215, Short.MAX_VALUE)
         );
         jPanelAudioLayout.setVerticalGroup(
             jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 242, Short.MAX_VALUE)
+            .addGap(0, 276, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Audio", jPanelAudio);
+        jTabbedPane.addTab("Audio", jPanelAudio);
 
         jPanelDVD.setPreferredSize(new java.awt.Dimension(892, 150));
 
@@ -237,22 +301,39 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelDVD.setLayout(jPanelDVDLayout);
         jPanelDVDLayout.setHorizontalGroup(
             jPanelDVDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 73, Short.MAX_VALUE)
+            .addGap(0, 215, Short.MAX_VALUE)
         );
         jPanelDVDLayout.setVerticalGroup(
             jPanelDVDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 242, Short.MAX_VALUE)
+            .addGap(0, 276, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("DVD", jPanelDVD);
+        jTabbedPane.addTab("DVD", jPanelDVD);
 
-        jPanel1.add(jTabbedPane1);
+        jSplitPane1.setLeftComponent(jTabbedPane);
 
-        jSplitPane2.setBottomComponent(jPanel1);
+        lstCategoriasSeleccionar.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstCategoriasSeleccionar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstCategoriasSeleccionar.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstCategoriasSeleccionarValueChanged(evt);
+            }
+        });
+        jScrollPaneCategoriasSeleccionar.setViewportView(lstCategoriasSeleccionar);
 
-        jSplitPane1.setRightComponent(jSplitPane2);
+        jSplitPane1.setRightComponent(jScrollPaneCategoriasSeleccionar);
 
-        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        jPanelItems.add(jSplitPane1);
+
+        jSplitPaneSecondary.setBottomComponent(jPanelItems);
+
+        jSplitPaneMain.setRightComponent(jSplitPaneSecondary);
+
+        getContentPane().add(jSplitPaneMain, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -289,6 +370,10 @@ public class MainWindows extends javax.swing.JFrame {
     private void txtAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgregarCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgregarCategoriaActionPerformed
+
+    private void lstCategoriasSeleccionarValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCategoriasSeleccionarValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lstCategoriasSeleccionarValueChanged
 
     /**
      * @param args the command line arguments
@@ -327,25 +412,36 @@ public class MainWindows extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCategoria;
+    private javax.swing.JButton btnAgregarLibro;
     private javax.swing.JButton btnEliminarCategoria;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanelAgregarCategorias;
     private javax.swing.JPanel jPanelAudio;
+    private javax.swing.JPanel jPanelBuscar;
+    private javax.swing.JPanel jPanelCategorias;
     private javax.swing.JPanel jPanelDVD;
+    private javax.swing.JPanel jPanelItems;
     private javax.swing.JPanel jPanelLibro;
     private javax.swing.JPanel jPanelRevista;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPaneCategorias;
+    private javax.swing.JScrollPane jScrollPaneCategoriasSeleccionar;
+    private javax.swing.JScrollPane jScrollPaneItems;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JSplitPane jSplitPaneMain;
+    private javax.swing.JSplitPane jSplitPaneSecondary;
+    private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblEditorial;
+    private javax.swing.JLabel lblLibroAutor;
+    private javax.swing.JLabel lblLibroTitulo;
     private javax.swing.JList lstCategorias;
+    private javax.swing.JList lstCategoriasSeleccionar;
     private javax.swing.JTable tblItems;
     private javax.swing.JTextField txtAgregarCategoria;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtLibroAutor;
+    private javax.swing.JTextField txtLibroEditorial;
+    private javax.swing.JTextField txtLibroTitulo;
     // End of variables declaration//GEN-END:variables
 }
