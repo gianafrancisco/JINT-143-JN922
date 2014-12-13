@@ -5,8 +5,12 @@
  */
 package ui.forms;
 
-import biblioteca.cats.Categoria;
+import biblioteca.cats.*;
+import biblioteca.items.Item;
+import biblioteca.items.Libro;
+import biblioteca.items.Revista;
 import biblioteca.persistencia.Archivo;
+import java.util.ArrayList;
 import ui.models.ListaModeloCategorias;
 import ui.models.ModeloItem;
 
@@ -16,23 +20,25 @@ import ui.models.ModeloItem;
  */
 public class MainWindows extends javax.swing.JFrame {
 
+    private Item itemSeleccionado;
+
     /**
      * Creates new form MainWindows
      */
     public MainWindows() {
         initComponents();
-        
+
         Archivo.cargar();
         cargarCategorias();
         actualizar();
-        
+
     }
 
     private void actualizar() {
-        Categoria categoriaSeleccionada=(Categoria)lstCategorias.getSelectedValue();
-        if(categoriaSeleccionada == null){
+        Categoria categoriaSeleccionada = (Categoria) lstCategorias.getSelectedValue();
+        if (categoriaSeleccionada == null) {
             tblItems.setModel(new ModeloItem(Archivo.getDatos().getItems().filtrar(txtBuscar.getText())));
-        }else{
+        } else {
             tblItems.setModel(new ModeloItem(categoriaSeleccionada.filtrar(txtBuscar.getText())));
         }
     }
@@ -76,8 +82,10 @@ public class MainWindows extends javax.swing.JFrame {
         lblLibroTitulo = new javax.swing.JLabel();
         lblLibroAutor = new javax.swing.JLabel();
         lblEditorial = new javax.swing.JLabel();
-        btnAgregarLibro = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jToolBar2 = new javax.swing.JToolBar();
+        btnAgregarLibro = new javax.swing.JButton();
+        btnGuardarLibro = new javax.swing.JButton();
         jPanelRevista = new javax.swing.JPanel();
         jPanelAudio = new javax.swing.JPanel();
         jPanelDVD = new javax.swing.JPanel();
@@ -134,7 +142,7 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelAgregarCategoriasLayout.setHorizontalGroup(
             jPanelAgregarCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAgregarCategoriasLayout.createSequentialGroup()
-                .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAgregarCategoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -192,6 +200,11 @@ public class MainWindows extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblItems.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblItemsMouseClicked(evt);
+            }
+        });
         jScrollPaneItems.setViewportView(tblItems);
 
         jSplitPaneSecondary.setTopComponent(jScrollPaneItems);
@@ -206,47 +219,61 @@ public class MainWindows extends javax.swing.JFrame {
 
         lblEditorial.setText("Editorial");
 
-        btnAgregarLibro.setText("Agregar Libro");
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/book.png"))); // NOI18N
+
+        jToolBar2.setRollover(true);
+
+        btnAgregarLibro.setText("+");
+        btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarLibroActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnAgregarLibro);
+
+        btnGuardarLibro.setText("Save");
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarLibro.setFocusable(false);
+        btnGuardarLibro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardarLibro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarLibroActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnGuardarLibro);
 
         javax.swing.GroupLayout jPanelLibroLayout = new javax.swing.GroupLayout(jPanelLibro);
         jPanelLibro.setLayout(jPanelLibroLayout);
         jPanelLibroLayout.setHorizontalGroup(
             jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLibroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(5, 5, 5)
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblEditorial)
+                    .addComponent(lblLibroTitulo)
+                    .addComponent(lblLibroAutor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLibroLayout.createSequentialGroup()
-                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelLibroLayout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addComponent(lblEditorial))
-                            .addGroup(jPanelLibroLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblLibroTitulo, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblLibroAutor, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLibroTitulo)
-                            .addComponent(txtLibroAutor)
-                            .addComponent(txtLibroEditorial)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLibroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregarLibro)))
+                    .addComponent(txtLibroTitulo)
+                    .addComponent(txtLibroAutor)
+                    .addComponent(txtLibroEditorial))
                 .addContainerGap())
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelLibroLayout.setVerticalGroup(
             jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLibroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLibroLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
+                        .addGap(0, 191, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addContainerGap())
                     .addGroup(jPanelLibroLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLibroTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLibroTitulo))
@@ -258,9 +285,7 @@ public class MainWindows extends javax.swing.JFrame {
                         .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLibroEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEditorial))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                        .addComponent(btnAgregarLibro)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jTabbedPane.addTab("Libro", jPanelLibro);
@@ -271,7 +296,7 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelRevista.setLayout(jPanelRevistaLayout);
         jPanelRevistaLayout.setHorizontalGroup(
             jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
         jPanelRevistaLayout.setVerticalGroup(
             jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +311,7 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelAudio.setLayout(jPanelAudioLayout);
         jPanelAudioLayout.setHorizontalGroup(
             jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
         jPanelAudioLayout.setVerticalGroup(
             jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +326,7 @@ public class MainWindows extends javax.swing.JFrame {
         jPanelDVD.setLayout(jPanelDVDLayout);
         jPanelDVDLayout.setHorizontalGroup(
             jPanelDVDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
         jPanelDVDLayout.setVerticalGroup(
             jPanelDVDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +342,6 @@ public class MainWindows extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        lstCategoriasSeleccionar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstCategoriasSeleccionar.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstCategoriasSeleccionarValueChanged(evt);
@@ -350,8 +374,8 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void btnEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCategoriaActionPerformed
         // TODO add your handling code here:
-        Categoria catEliminar = (Categoria)lstCategorias.getSelectedValue();
-        if(catEliminar != null && !catEliminar.getNombre().equals("Default")){
+        Categoria catEliminar = (Categoria) lstCategorias.getSelectedValue();
+        if (catEliminar != null && !catEliminar.getNombre().equals("Default")) {
             Archivo.getDatos().getCategorias().remove(catEliminar);
             Archivo.guardar();
             cargarCategorias();
@@ -360,7 +384,7 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void btnAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaActionPerformed
         // TODO add your handling code here:
-        if(!txtAgregarCategoria.getText().equals("") && Archivo.getDatos().getCategorias().filtrar(txtAgregarCategoria.getText()).size() == 0){
+        if (!txtAgregarCategoria.getText().equals("") && Archivo.getDatos().getCategorias().filtrar(txtAgregarCategoria.getText()).size() == 0) {
             Archivo.getDatos().getCategorias().add(new Categoria(txtAgregarCategoria.getText()));
             cargarCategorias();
             Archivo.guardar();
@@ -374,6 +398,65 @@ public class MainWindows extends javax.swing.JFrame {
     private void lstCategoriasSeleccionarValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCategoriasSeleccionarValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_lstCategoriasSeleccionarValueChanged
+
+    private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
+        // TODO add your handling code here:
+        itemSeleccionado = null;
+        btnGuardarLibro.setEnabled(true);
+
+    }//GEN-LAST:event_btnAgregarLibroActionPerformed
+
+    private void btnGuardarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarLibroActionPerformed
+        // TODO add your handling code here:
+        Libro l = (Libro) (itemSeleccionado);
+        if (l == null) {
+            l = new Libro(null, null, null);
+            Archivo.getDatos().getItems().add(l);
+        }
+        ListaCategoria lc= Archivo.getDatos().getCategorias();
+        for( Categoria c: lc){
+            l.borrarCategoria(c);
+        }
+        for( Object c: lstCategoriasSeleccionar.getSelectedValuesList()){
+            l.agregarCategoria((Categoria)c);
+        }
+        l.setTitulo(txtLibroTitulo.getText());
+        l.setAutor(txtLibroAutor.getText());
+        l.setEditorial(txtLibroEditorial.getText());
+        Archivo.guardar();
+        btnGuardarLibro.setEnabled(false);
+        actualizar();
+    }//GEN-LAST:event_btnGuardarLibroActionPerformed
+
+    private void tblItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblItemsMouseClicked
+        // TODO add your handling code here:
+        Item i = ((ModeloItem) tblItems.getModel()).getItem(tblItems.getSelectedRow());
+        itemSeleccionado=i;
+        if (i != null) {
+            if(i instanceof Libro){
+                Libro l = (Libro)i;
+                jTabbedPane.setSelectedIndex(0);
+                txtLibroAutor.setText(l.getAutor());
+                txtLibroTitulo.setText(l.getTitulo());
+                txtLibroEditorial.setText(l.getEditorial());
+                btnGuardarLibro.setEnabled(true);
+                
+            }else if(i instanceof Revista){
+                jTabbedPane.setSelectedIndex(1);
+            }
+            //JOptionPane.showMessageDialog(this, i, "Información del Adicional", JOptionPane.INFORMATION_MESSAGE);
+            ArrayList<Integer> catSel=new ArrayList<Integer>();
+            for(Categoria c: i.getCategorias()){
+                catSel.add(Archivo.getDatos().getCategorias().indexOf(c));
+            }
+            int []icatSel = new int[catSel.size()];
+            for(int j=0;j<catSel.size();j++){
+                icatSel[j]=catSel.get(j);
+            }
+            lstCategoriasSeleccionar.setSelectedIndices(icatSel);
+            
+        }
+    }//GEN-LAST:event_tblItemsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -414,6 +497,7 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarCategoria;
     private javax.swing.JButton btnAgregarLibro;
     private javax.swing.JButton btnEliminarCategoria;
+    private javax.swing.JButton btnGuardarLibro;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanelAgregarCategorias;
     private javax.swing.JPanel jPanelAudio;
@@ -431,6 +515,7 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPaneSecondary;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblEditorial;
     private javax.swing.JLabel lblLibroAutor;
