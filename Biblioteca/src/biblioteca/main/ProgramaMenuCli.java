@@ -1,7 +1,7 @@
 package biblioteca.main;
 
 import biblioteca.cats.Categoria;
-import biblioteca.cats.ListaCategoria;
+import biblioteca.list.ListaCategoria;
 
 import java.io.Console;
 import java.text.ParseException;

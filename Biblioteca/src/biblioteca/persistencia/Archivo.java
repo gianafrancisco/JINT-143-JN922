@@ -15,7 +15,7 @@ public class Archivo
 
     public static void cargar()
     {
-        File f = new File("data/Biblioteca.jdb");
+        File f = new File("data/biblioteca.dat");
         if (f.exists())
         {
             try
@@ -43,7 +43,7 @@ public class Archivo
 
     public static void guardar()
     {
-        File f = new File("data/Biblioteca.jdb");
+        File f = new File("data/biblioteca.dat");
 
         try
         {

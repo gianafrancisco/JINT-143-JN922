@@ -7,8 +7,8 @@ import biblioteca.items.Capitulo;
 import biblioteca.items.Revista;
 import biblioteca.items.Pelicula;
 import biblioteca.cats.Categoria;
-import biblioteca.cats.ListaCategoria;
-import biblioteca.cats.ListaItem;
+import biblioteca.list.ListaCategoria;
+import biblioteca.list.ListaItem;
 
 import java.text.ParseException;
 
@@ -40,10 +40,10 @@ public class Programa {
         l = new Libro("Infierno","Dan Brown","AAA");
         l.agregarCategoria(catDefault);
         //items.add(l);
-        l = new Revista("Caza y pesca","EZ");
+        l = new Revista("Caza y pesca",2014,1,"EZ");
         l.agregarCategoria(catDefault);
         //items.add(l);
-        l = new Revista("Animal Planet","Discovery Magazzine");
+        l = new Revista("Animal Planet",2013,2,"Discovery Magazzine");
         l.agregarCategoria(catDefault);
         //items.add(l);
         l= new Audio("El Sensei","Las pastillas del abuelo","Perro Records","01/09/2010");

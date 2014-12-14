@@ -1,15 +1,17 @@
 package ui.models;
 
-import biblioteca.cats.Categoria;
-import biblioteca.persistencia.Archivo;
-import java.util.LinkedList;
+
+import biblioteca.list.ListaPistas;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
-public class ListaModeloCategorias implements ListModel {
+public class ListaModeloPistas implements ListModel {
 
-    LinkedList<Categoria> lista = Archivo.getDatos().getCategorias();
+    ListaPistas lista = null;
 
+    public ListaModeloPistas(ListaPistas lista) {
+        this.lista = lista;
+    }
     @Override
     public int getSize() {
         return lista.size();

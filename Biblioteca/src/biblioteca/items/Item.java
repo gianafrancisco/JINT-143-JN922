@@ -1,10 +1,11 @@
 package biblioteca.items;
 
 import biblioteca.cats.Categoria;
-import biblioteca.cats.ListaCategoria;
+import biblioteca.list.ListaCategoria;
+import biblioteca.interfaces.Exportable;
 import java.io.Serializable;
 
-public abstract class Item implements Serializable {
+public abstract class Item implements Serializable, Exportable {
 
     private String titulo;
     private ListaCategoria lc;
@@ -36,9 +37,7 @@ public abstract class Item implements Serializable {
         categoria.remove(this);
         return true;
     }
-
-    public abstract String exportar();
-
+    
     protected String exportarCategorias() {
         String strExportar = "";
         for (Categoria c : lc) {

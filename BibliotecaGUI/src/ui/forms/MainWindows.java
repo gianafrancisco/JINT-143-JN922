@@ -5,13 +5,36 @@
  */
 package ui.forms;
 
+import biblioteca.list.ListaCategoria;
 import biblioteca.cats.*;
+import biblioteca.enums.TipoDisco;
+import biblioteca.items.Audio;
+import biblioteca.items.Capitulo;
+import biblioteca.items.Dato;
 import biblioteca.items.Item;
 import biblioteca.items.Libro;
+import biblioteca.items.Pelicula;
+import biblioteca.items.Pista;
 import biblioteca.items.Revista;
 import biblioteca.persistencia.Archivo;
+import biblioteca.persistencia.Exportar;
+import biblioteca.persistencia.Importar;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
+import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import org.jdatepicker.DateModel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import ui.models.ListaModeloCapitulos;
 import ui.models.ListaModeloCategorias;
+import ui.models.ListaModeloPistas;
 import ui.models.ModeloItem;
 
 /**
@@ -27,10 +50,12 @@ public class MainWindows extends javax.swing.JFrame {
      */
     public MainWindows() {
         initComponents();
-
+        //TODO Todos los item deben pertenercer a la categoria por defecto
         Archivo.cargar();
         cargarCategorias();
         actualizar();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //lstCapitulos.setModel(null);
 
     }
 
@@ -46,6 +71,7 @@ public class MainWindows extends javax.swing.JFrame {
     private void cargarCategorias() {
         lstCategorias.setModel(new ListaModeloCategorias());
         lstCategoriasSeleccionar.setModel(new ListaModeloCategorias());
+        lstCategoriasSeleccionar.setSelectedIndex(0);
     }
 
     /**
@@ -57,23 +83,30 @@ public class MainWindows extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
-        jPanelBuscar = new javax.swing.JPanel();
-        lblBuscar = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
         jSplitPaneMain = new javax.swing.JSplitPane();
         jPanelCategorias = new javax.swing.JPanel();
         jPanelAgregarCategorias = new javax.swing.JPanel();
+        jToolBar7 = new javax.swing.JToolBar();
         txtAgregarCategoria = new javax.swing.JTextField();
         btnAgregarCategoria = new javax.swing.JButton();
         btnEliminarCategoria = new javax.swing.JButton();
         jScrollPaneCategorias = new javax.swing.JScrollPane();
         lstCategorias = new javax.swing.JList();
         jSplitPaneSecondary = new javax.swing.JSplitPane();
+        jPanelTable = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnEliminarItem = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
+        btnImportar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jPanelBuscar = new javax.swing.JPanel();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
         jScrollPaneItems = new javax.swing.JScrollPane();
         tblItems = new javax.swing.JTable();
         jPanelItems = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
         jTabbedPane = new javax.swing.JTabbedPane();
         jPanelLibro = new javax.swing.JPanel();
         txtLibroTitulo = new javax.swing.JTextField();
@@ -82,39 +115,72 @@ public class MainWindows extends javax.swing.JFrame {
         lblLibroTitulo = new javax.swing.JLabel();
         lblLibroAutor = new javax.swing.JLabel();
         lblEditorial = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jToolBar2 = new javax.swing.JToolBar();
         btnAgregarLibro = new javax.swing.JButton();
         btnGuardarLibro = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstCapitulos = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        btnAgregarCapitulo = new javax.swing.JButton();
+        btnEliminarCapitulo = new javax.swing.JButton();
+        txtCapitulo = new javax.swing.JTextField();
         jPanelRevista = new javax.swing.JPanel();
+        jToolBar3 = new javax.swing.JToolBar();
+        btnAgregarRevista = new javax.swing.JButton();
+        btnGuardarRevista = new javax.swing.JButton();
+        lblRevistaNombre = new javax.swing.JLabel();
+        txtRevistaNombre = new javax.swing.JTextField();
+        txtRevistaEditorial = new javax.swing.JTextField();
+        lblRevistaEditorial = new javax.swing.JLabel();
+        lblRevistaAno = new javax.swing.JLabel();
+        txtRevistaAno = new javax.swing.JTextField();
+        lblRevistaNumero = new javax.swing.JLabel();
+        txtRevistaNumero = new javax.swing.JTextField();
         jPanelAudio = new javax.swing.JPanel();
-        jPanelDVD = new javax.swing.JPanel();
+        jToolBar4 = new javax.swing.JToolBar();
+        btnAgregarAudio = new javax.swing.JButton();
+        btnGuardarAudio = new javax.swing.JButton();
+        lblAudioInterprete = new javax.swing.JLabel();
+        txtAudioInterprete = new javax.swing.JTextField();
+        txtAudioTitulo = new javax.swing.JTextField();
+        lblAudioTitulo = new javax.swing.JLabel();
+        txtAudioDiscografica = new javax.swing.JTextField();
+        lblAudioDiscografica = new javax.swing.JLabel();
+        lblAudioLanzamiento = new javax.swing.JLabel();
+        txtAudioLanzamiento = new javax.swing.JTextField();
+        lblPistas = new javax.swing.JLabel();
+        txtPista = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstPistas = new javax.swing.JList();
+        btnAgregarPistas = new javax.swing.JButton();
+        btnEliminarPistas = new javax.swing.JButton();
+        jPanelPelicula = new javax.swing.JPanel();
+        jToolBar5 = new javax.swing.JToolBar();
+        btnAgregarPelicula = new javax.swing.JButton();
+        btnGuardarPelicula = new javax.swing.JButton();
+        lblPeliculaNombre = new javax.swing.JLabel();
+        txtPeliculaNombre = new javax.swing.JTextField();
+        lblPeliculaDuracion = new javax.swing.JLabel();
+        txtPeliculaDuracion = new javax.swing.JTextField();
+        lblPeliculaLanzamiento = new javax.swing.JLabel();
+        txtPeliculaLanzamiento = new javax.swing.JTextField();
+        jPanelDatos = new javax.swing.JPanel();
+        jToolBar6 = new javax.swing.JToolBar();
+        btnAgregarDato = new javax.swing.JButton();
+        btnGuardarDato = new javax.swing.JButton();
+        lblDatoNombre = new javax.swing.JLabel();
+        txtDatoNombre = new javax.swing.JTextField();
+        jPanelCategoriasSeleccionar = new javax.swing.JPanel();
         jScrollPaneCategoriasSeleccionar = new javax.swing.JScrollPane();
         lstCategoriasSeleccionar = new javax.swing.JList();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jToolBar1.setRollover(true);
-
-        jPanelBuscar.setLayout(new javax.swing.BoxLayout(jPanelBuscar, javax.swing.BoxLayout.LINE_AXIS));
-
-        lblBuscar.setText("Buscar:  ");
-        jPanelBuscar.add(lblBuscar);
-
-        txtBuscar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        txtBuscar.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyTyped(evt);
-            }
-        });
-        jPanelBuscar.add(txtBuscar);
-
-        jToolBar1.add(jPanelBuscar);
-
-        getContentPane().add(jToolBar1, java.awt.BorderLayout.NORTH);
+        setTitle("Biblioteca");
 
         jSplitPaneMain.setResizeWeight(1.0);
+
+        jToolBar7.setRollover(true);
 
         txtAgregarCategoria.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         txtAgregarCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -122,38 +188,35 @@ public class MainWindows extends javax.swing.JFrame {
                 txtAgregarCategoriaActionPerformed(evt);
             }
         });
+        jToolBar7.add(txtAgregarCategoria);
 
-        btnAgregarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new_category.png"))); // NOI18N
+        btnAgregarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new.png"))); // NOI18N
+        btnAgregarCategoria.setToolTipText("Agregar Categorias");
         btnAgregarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarCategoriaActionPerformed(evt);
             }
         });
+        jToolBar7.add(btnAgregarCategoria);
 
         btnEliminarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/delete.png"))); // NOI18N
+        btnEliminarCategoria.setToolTipText("Borrar Categoria");
         btnEliminarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarCategoriaActionPerformed(evt);
             }
         });
+        jToolBar7.add(btnEliminarCategoria);
 
         javax.swing.GroupLayout jPanelAgregarCategoriasLayout = new javax.swing.GroupLayout(jPanelAgregarCategorias);
         jPanelAgregarCategorias.setLayout(jPanelAgregarCategoriasLayout);
         jPanelAgregarCategoriasLayout.setHorizontalGroup(
             jPanelAgregarCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelAgregarCategoriasLayout.createSequentialGroup()
-                .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregarCategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminarCategoria)
-                .addGap(6, 6, 6))
+            .addComponent(jToolBar7, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
         );
         jPanelAgregarCategoriasLayout.setVerticalGroup(
             jPanelAgregarCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnAgregarCategoria)
-            .addComponent(btnEliminarCategoria)
+            .addComponent(jToolBar7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lstCategorias.setModel(new javax.swing.AbstractListModel() {
@@ -182,12 +245,70 @@ public class MainWindows extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jPanelAgregarCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                .addComponent(jScrollPaneCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
         );
 
         jSplitPaneMain.setLeftComponent(jPanelCategorias);
 
         jSplitPaneSecondary.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        jToolBar1.setRollover(true);
+
+        btnEliminarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/delete.png"))); // NOI18N
+        btnEliminarItem.setToolTipText("Borrar Item");
+        btnEliminarItem.setFocusable(false);
+        btnEliminarItem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminarItem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEliminarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarItemActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnEliminarItem);
+
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/export.png"))); // NOI18N
+        btnExportar.setToolTipText("Exportar");
+        btnExportar.setFocusable(false);
+        btnExportar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnExportar);
+
+        btnImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/import.png"))); // NOI18N
+        btnImportar.setToolTipText("Importar");
+        btnImportar.setFocusable(false);
+        btnImportar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImportar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnImportar);
+        jToolBar1.add(jSeparator1);
+
+        jPanelBuscar.setLayout(new javax.swing.BoxLayout(jPanelBuscar, javax.swing.BoxLayout.LINE_AXIS));
+
+        lblBuscar.setText("Buscar:  ");
+        jPanelBuscar.add(lblBuscar);
+
+        txtBuscar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        txtBuscar.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+        jPanelBuscar.add(txtBuscar);
+
+        jToolBar1.add(jPanelBuscar);
 
         tblItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,7 +328,22 @@ public class MainWindows extends javax.swing.JFrame {
         });
         jScrollPaneItems.setViewportView(tblItems);
 
-        jSplitPaneSecondary.setTopComponent(jScrollPaneItems);
+        javax.swing.GroupLayout jPanelTableLayout = new javax.swing.GroupLayout(jPanelTable);
+        jPanelTable.setLayout(jPanelTableLayout);
+        jPanelTableLayout.setHorizontalGroup(
+            jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPaneItems, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
+        );
+        jPanelTableLayout.setVerticalGroup(
+            jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTableLayout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneItems, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+        );
+
+        jSplitPaneSecondary.setLeftComponent(jPanelTable);
 
         jPanelItems.setLayout(new javax.swing.BoxLayout(jPanelItems, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -219,11 +355,10 @@ public class MainWindows extends javax.swing.JFrame {
 
         lblEditorial.setText("Editorial");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/book.png"))); // NOI18N
-
         jToolBar2.setRollover(true);
 
-        btnAgregarLibro.setText("+");
+        btnAgregarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new.png"))); // NOI18N
+        btnAgregarLibro.setToolTipText("Nuevo");
         btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarLibroActionPerformed(evt);
@@ -231,7 +366,8 @@ public class MainWindows extends javax.swing.JFrame {
         });
         jToolBar2.add(btnAgregarLibro);
 
-        btnGuardarLibro.setText("Save");
+        btnGuardarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/save.png"))); // NOI18N
+        btnGuardarLibro.setToolTipText("Guardar");
         btnGuardarLibro.setEnabled(false);
         btnGuardarLibro.setFocusable(false);
         btnGuardarLibro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -243,99 +379,460 @@ public class MainWindows extends javax.swing.JFrame {
         });
         jToolBar2.add(btnGuardarLibro);
 
+        lstCapitulos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(lstCapitulos);
+
+        jLabel1.setText("Capitulos");
+
+        btnAgregarCapitulo.setText("Agregar");
+        btnAgregarCapitulo.setEnabled(false);
+        btnAgregarCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCapituloActionPerformed(evt);
+            }
+        });
+
+        btnEliminarCapitulo.setText("Eliminar");
+        btnEliminarCapitulo.setEnabled(false);
+        btnEliminarCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCapituloActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelLibroLayout = new javax.swing.GroupLayout(jPanelLibro);
         jPanelLibro.setLayout(jPanelLibroLayout);
         jPanelLibroLayout.setHorizontalGroup(
             jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelLibroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(5, 5, 5)
                 .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblEditorial)
                     .addComponent(lblLibroTitulo)
-                    .addComponent(lblLibroAutor))
+                    .addComponent(lblLibroAutor)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtLibroTitulo)
                     .addComponent(txtLibroAutor)
-                    .addComponent(txtLibroEditorial))
+                    .addComponent(txtLibroEditorial)
+                    .addGroup(jPanelLibroLayout.createSequentialGroup()
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                            .addComponent(txtCapitulo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgregarCapitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminarCapitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelLibroLayout.setVerticalGroup(
             jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLibroLayout.createSequentialGroup()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelLibroLayout.createSequentialGroup()
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLibroTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLibroTitulo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLibroAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLibroAutor))
+                .addGap(8, 8, 8)
+                .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLibroEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditorial))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLibroLayout.createSequentialGroup()
-                        .addGap(0, 191, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addContainerGap())
+                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtCapitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelLibroLayout.createSequentialGroup()
+                        .addComponent(btnAgregarCapitulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLibroTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLibroTitulo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLibroAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLibroAutor))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanelLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLibroEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEditorial))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnEliminarCapitulo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane.addTab("Libro", jPanelLibro);
+        jTabbedPane.addTab("Libro", new javax.swing.ImageIcon(getClass().getResource("/ui/img/book.png")), jPanelLibro); // NOI18N
 
         jPanelRevista.setPreferredSize(new java.awt.Dimension(892, 150));
+
+        jToolBar3.setRollover(true);
+
+        btnAgregarRevista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new.png"))); // NOI18N
+        btnAgregarRevista.setToolTipText("Nuevo");
+        btnAgregarRevista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRevistaActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(btnAgregarRevista);
+
+        btnGuardarRevista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/save.png"))); // NOI18N
+        btnGuardarRevista.setToolTipText("Grabar");
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarRevista.setFocusable(false);
+        btnGuardarRevista.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardarRevista.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardarRevista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRevistaActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(btnGuardarRevista);
+
+        lblRevistaNombre.setText("Nombre");
+
+        lblRevistaEditorial.setText("Editorial");
+
+        lblRevistaAno.setText("Año");
+
+        txtRevistaAno.setText("2014");
+
+        lblRevistaNumero.setText("Número");
+
+        txtRevistaNumero.setText("0");
 
         javax.swing.GroupLayout jPanelRevistaLayout = new javax.swing.GroupLayout(jPanelRevista);
         jPanelRevista.setLayout(jPanelRevistaLayout);
         jPanelRevistaLayout.setHorizontalGroup(
             jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
+            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelRevistaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRevistaNombre)
+                            .addComponent(lblRevistaEditorial))
+                        .addComponent(lblRevistaNumero, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblRevistaAno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRevistaEditorial)
+                    .addComponent(txtRevistaNombre)
+                    .addGroup(jPanelRevistaLayout.createSequentialGroup()
+                        .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRevistaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRevistaAno, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 723, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelRevistaLayout.setVerticalGroup(
             jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(jPanelRevistaLayout.createSequentialGroup()
+                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRevistaNombre)
+                    .addComponent(txtRevistaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRevistaEditorial)
+                    .addComponent(txtRevistaEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRevistaAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRevistaAno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelRevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRevistaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRevistaNumero))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane.addTab("Revista", jPanelRevista);
+        jTabbedPane.addTab("Revista", new javax.swing.ImageIcon(getClass().getResource("/ui/img/revista.png")), jPanelRevista); // NOI18N
 
         jPanelAudio.setPreferredSize(new java.awt.Dimension(892, 150));
+
+        jToolBar4.setRollover(true);
+
+        btnAgregarAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new.png"))); // NOI18N
+        btnAgregarAudio.setToolTipText("Nuevo");
+        btnAgregarAudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAudioActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(btnAgregarAudio);
+
+        btnGuardarAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/save.png"))); // NOI18N
+        btnGuardarAudio.setToolTipText("Guardar");
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarAudio.setFocusable(false);
+        btnGuardarAudio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardarAudio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardarAudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarAudioActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(btnGuardarAudio);
+
+        lblAudioInterprete.setText("Interprete");
+
+        lblAudioTitulo.setText("Titulo disco");
+
+        lblAudioDiscografica.setText("Discografica");
+
+        lblAudioLanzamiento.setText("Fecha Lanzamiento");
+
+        txtAudioLanzamiento.setText("2014/12/14");
+
+        lblPistas.setText("Pistas");
+
+        lstPistas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(lstPistas);
+
+        btnAgregarPistas.setText("Agregar");
+        btnAgregarPistas.setEnabled(false);
+        btnAgregarPistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPistasActionPerformed(evt);
+            }
+        });
+
+        btnEliminarPistas.setText("Eliminar");
+        btnEliminarPistas.setEnabled(false);
+        btnEliminarPistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPistasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAudioLayout = new javax.swing.GroupLayout(jPanelAudio);
         jPanelAudio.setLayout(jPanelAudioLayout);
         jPanelAudioLayout.setHorizontalGroup(
             jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
+            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
+            .addGroup(jPanelAudioLayout.createSequentialGroup()
+                .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAudioLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblAudioLanzamiento)
+                            .addComponent(lblAudioInterprete)
+                            .addComponent(lblAudioTitulo)
+                            .addComponent(lblAudioDiscografica))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAudioTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+                            .addComponent(txtAudioInterprete)
+                            .addComponent(txtAudioDiscografica)
+                            .addComponent(txtAudioLanzamiento)))
+                    .addGroup(jPanelAudioLayout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(lblPistas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                            .addComponent(txtPista))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAgregarPistas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminarPistas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanelAudioLayout.setVerticalGroup(
             jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(jPanelAudioLayout.createSequentialGroup()
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAudioInterprete)
+                    .addComponent(txtAudioInterprete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAudioTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAudioTitulo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAudioDiscografica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAudioDiscografica))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAudioLanzamiento)
+                    .addComponent(txtAudioLanzamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAudioLayout.createSequentialGroup()
+                        .addComponent(btnAgregarPistas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminarPistas))
+                    .addGroup(jPanelAudioLayout.createSequentialGroup()
+                        .addGroup(jPanelAudioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPistas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane.addTab("Audio", jPanelAudio);
+        jTabbedPane.addTab("Audio", new javax.swing.ImageIcon(getClass().getResource("/ui/img/audio.png")), jPanelAudio); // NOI18N
 
-        jPanelDVD.setPreferredSize(new java.awt.Dimension(892, 150));
+        jPanelPelicula.setPreferredSize(new java.awt.Dimension(892, 150));
 
-        javax.swing.GroupLayout jPanelDVDLayout = new javax.swing.GroupLayout(jPanelDVD);
-        jPanelDVD.setLayout(jPanelDVDLayout);
-        jPanelDVDLayout.setHorizontalGroup(
-            jPanelDVDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
+        jToolBar5.setRollover(true);
+
+        btnAgregarPelicula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new.png"))); // NOI18N
+        btnAgregarPelicula.setToolTipText("Nuevo");
+        btnAgregarPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPeliculaActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(btnAgregarPelicula);
+
+        btnGuardarPelicula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/save.png"))); // NOI18N
+        btnGuardarPelicula.setToolTipText("Guardar");
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarPelicula.setFocusable(false);
+        btnGuardarPelicula.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardarPelicula.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardarPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarPeliculaActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(btnGuardarPelicula);
+
+        lblPeliculaNombre.setText("Nombre");
+
+        lblPeliculaDuracion.setText("Duracion");
+
+        lblPeliculaLanzamiento.setText("Fecha Lanzamiento");
+
+        txtPeliculaLanzamiento.setText("2014/12/14");
+
+        javax.swing.GroupLayout jPanelPeliculaLayout = new javax.swing.GroupLayout(jPanelPelicula);
+        jPanelPelicula.setLayout(jPanelPeliculaLayout);
+        jPanelPeliculaLayout.setHorizontalGroup(
+            jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPeliculaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblPeliculaNombre)
+                    .addComponent(lblPeliculaDuracion)
+                    .addComponent(lblPeliculaLanzamiento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPeliculaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+                    .addComponent(txtPeliculaLanzamiento)
+                    .addGroup(jPanelPeliculaLayout.createSequentialGroup()
+                        .addComponent(txtPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jPanelDVDLayout.setVerticalGroup(
-            jPanelDVDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+        jPanelPeliculaLayout.setVerticalGroup(
+            jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPeliculaLayout.createSequentialGroup()
+                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPeliculaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPeliculaNombre))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPeliculaDuracion)
+                    .addComponent(txtPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPeliculaLanzamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPeliculaLanzamiento))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane.addTab("DVD", jPanelDVD);
+        jTabbedPane.addTab("Video", new javax.swing.ImageIcon(getClass().getResource("/ui/img/video.png")), jPanelPelicula); // NOI18N
 
-        jSplitPane1.setLeftComponent(jTabbedPane);
+        jPanelDatos.setPreferredSize(new java.awt.Dimension(892, 150));
+
+        jToolBar6.setRollover(true);
+
+        btnAgregarDato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/new.png"))); // NOI18N
+        btnAgregarDato.setToolTipText("Nuevo");
+        btnAgregarDato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarDatoActionPerformed(evt);
+            }
+        });
+        jToolBar6.add(btnAgregarDato);
+
+        btnGuardarDato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/img/save.png"))); // NOI18N
+        btnGuardarDato.setToolTipText("Guardar");
+        btnGuardarDato.setEnabled(false);
+        btnGuardarDato.setFocusable(false);
+        btnGuardarDato.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardarDato.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardarDato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarDatoActionPerformed(evt);
+            }
+        });
+        jToolBar6.add(btnGuardarDato);
+
+        lblDatoNombre.setText("Nombre");
+
+        txtDatoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDatoNombreActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelDatosLayout = new javax.swing.GroupLayout(jPanelDatos);
+        jPanelDatos.setLayout(jPanelDatosLayout);
+        jPanelDatosLayout.setHorizontalGroup(
+            jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar6, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
+            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(lblDatoNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDatoNombre)
+                .addContainerGap())
+        );
+        jPanelDatosLayout.setVerticalGroup(
+            jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDatoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDatoNombre))
+                .addGap(0, 226, Short.MAX_VALUE))
+        );
+
+        jTabbedPane.addTab("Datos", new javax.swing.ImageIcon(getClass().getResource("/ui/img/dato.png")), jPanelDatos); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 541, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 354, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
+        );
+
+        jTabbedPane.getAccessibleContext().setAccessibleDescription("");
+
+        jSplitPane1.setLeftComponent(jPanel1);
 
         lstCategoriasSeleccionar.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -349,7 +846,26 @@ public class MainWindows extends javax.swing.JFrame {
         });
         jScrollPaneCategoriasSeleccionar.setViewportView(lstCategoriasSeleccionar);
 
-        jSplitPane1.setRightComponent(jScrollPaneCategoriasSeleccionar);
+        jLabel2.setText("Seleccione la categoria");
+
+        javax.swing.GroupLayout jPanelCategoriasSeleccionarLayout = new javax.swing.GroupLayout(jPanelCategoriasSeleccionar);
+        jPanelCategoriasSeleccionar.setLayout(jPanelCategoriasSeleccionarLayout);
+        jPanelCategoriasSeleccionarLayout.setHorizontalGroup(
+            jPanelCategoriasSeleccionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPaneCategoriasSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+            .addGroup(jPanelCategoriasSeleccionarLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanelCategoriasSeleccionarLayout.setVerticalGroup(
+            jPanelCategoriasSeleccionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCategoriasSeleccionarLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneCategoriasSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
+        );
+
+        jSplitPane1.setRightComponent(jPanelCategoriasSeleccionar);
 
         jPanelItems.add(jSplitPane1);
 
@@ -364,7 +880,6 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         // TODO add your handling code here:
-        actualizar();
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void lstCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCategoriasValueChanged
@@ -402,6 +917,14 @@ public class MainWindows extends javax.swing.JFrame {
     private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
         // TODO add your handling code here:
         itemSeleccionado = null;
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnAgregarCapitulo.setEnabled(false);
+        btnEliminarCapitulo.setEnabled(false);
+
         btnGuardarLibro.setEnabled(true);
 
     }//GEN-LAST:event_btnAgregarLibroActionPerformed
@@ -413,50 +936,382 @@ public class MainWindows extends javax.swing.JFrame {
             l = new Libro(null, null, null);
             Archivo.getDatos().getItems().add(l);
         }
-        ListaCategoria lc= Archivo.getDatos().getCategorias();
-        for( Categoria c: lc){
+        ListaCategoria lc = Archivo.getDatos().getCategorias();
+        for (Categoria c : lc) {
             l.borrarCategoria(c);
         }
-        for( Object c: lstCategoriasSeleccionar.getSelectedValuesList()){
-            l.agregarCategoria((Categoria)c);
+        for (Object c : lstCategoriasSeleccionar.getSelectedValuesList()) {
+            l.agregarCategoria((Categoria) c);
         }
         l.setTitulo(txtLibroTitulo.getText());
         l.setAutor(txtLibroAutor.getText());
         l.setEditorial(txtLibroEditorial.getText());
+        itemSeleccionado = l;
         Archivo.guardar();
         btnGuardarLibro.setEnabled(false);
+
+        btnAgregarCapitulo.setEnabled(true);
+        btnEliminarCapitulo.setEnabled(true);
+
         actualizar();
+
+
     }//GEN-LAST:event_btnGuardarLibroActionPerformed
 
     private void tblItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblItemsMouseClicked
         // TODO add your handling code here:
         Item i = ((ModeloItem) tblItems.getModel()).getItem(tblItems.getSelectedRow());
-        itemSeleccionado=i;
+        itemSeleccionado = i;
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarDato.setEnabled(false);
+        btnAgregarCapitulo.setEnabled(false);
+        btnEliminarCapitulo.setEnabled(false);
+        btnAgregarPistas.setEnabled(false);
+        btnEliminarPistas.setEnabled(false);
+
         if (i != null) {
-            if(i instanceof Libro){
-                Libro l = (Libro)i;
+            if (i instanceof Libro) {
                 jTabbedPane.setSelectedIndex(0);
+                Libro l = (Libro) i;
                 txtLibroAutor.setText(l.getAutor());
                 txtLibroTitulo.setText(l.getTitulo());
                 txtLibroEditorial.setText(l.getEditorial());
+                actualizarCapitulos(l);
                 btnGuardarLibro.setEnabled(true);
-                
-            }else if(i instanceof Revista){
+                btnAgregarCapitulo.setEnabled(true);
+                btnEliminarCapitulo.setEnabled(true);
+
+            } else if (i instanceof Revista) {
+                Revista l = (Revista) i;
                 jTabbedPane.setSelectedIndex(1);
+                txtRevistaNombre.setText(l.getTitulo());
+                txtRevistaEditorial.setText(l.getEditorial());
+                txtRevistaAno.setText(Integer.toString(l.getAno()));
+                txtRevistaNumero.setText(Integer.toString(l.getNumero()));
+                btnGuardarRevista.setEnabled(true);
+            } else if (i instanceof Audio) {
+                Audio l = (Audio) i;
+                jTabbedPane.setSelectedIndex(2);
+                txtAudioTitulo.setText(l.getTitulo());
+                txtAudioDiscografica.setText(l.getDiscografica());
+                txtAudioInterprete.setText(l.getInterprete());
+                txtAudioLanzamiento.setText(l.getFechaLanzamiento().toString());
+                actualizarPistas(l);
+                btnGuardarAudio.setEnabled(true);
+                btnAgregarPistas.setEnabled(true);
+                btnEliminarPistas.setEnabled(true);
+            } else if (i instanceof Pelicula) {
+                Pelicula l = (Pelicula) i;
+                jTabbedPane.setSelectedIndex(3);
+                txtPeliculaNombre.setText(l.getTitulo());
+                txtPeliculaDuracion.setText(Integer.toString(l.getDuracion()));
+                txtPeliculaLanzamiento.setText(l.getFechaEstreno().toString());
+                btnGuardarPelicula.setEnabled(true);
+            } else if (i instanceof Dato) {
+                Dato l = (Dato) i;
+                jTabbedPane.setSelectedIndex(4);
+                txtDatoNombre.setText(l.getTitulo());
+                btnGuardarDato.setEnabled(true);
             }
             //JOptionPane.showMessageDialog(this, i, "Información del Adicional", JOptionPane.INFORMATION_MESSAGE);
-            ArrayList<Integer> catSel=new ArrayList<Integer>();
-            for(Categoria c: i.getCategorias()){
+            ArrayList<Integer> catSel = new ArrayList<Integer>();
+            for (Categoria c : i.getCategorias()) {
                 catSel.add(Archivo.getDatos().getCategorias().indexOf(c));
             }
-            int []icatSel = new int[catSel.size()];
-            for(int j=0;j<catSel.size();j++){
-                icatSel[j]=catSel.get(j);
+            int[] icatSel = new int[catSel.size()];
+            for (int j = 0; j < catSel.size(); j++) {
+                icatSel[j] = catSel.get(j);
             }
             lstCategoriasSeleccionar.setSelectedIndices(icatSel);
-            
+
         }
     }//GEN-LAST:event_tblItemsMouseClicked
+
+    private void btnAgregarRevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRevistaActionPerformed
+        // TODO add your handling code here:
+        itemSeleccionado = null;
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarDato.setEnabled(false);
+
+        btnGuardarRevista.setEnabled(true);
+    }//GEN-LAST:event_btnAgregarRevistaActionPerformed
+
+    private void btnGuardarRevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRevistaActionPerformed
+        // TODO add your handling code here:
+        Revista l = (Revista) (itemSeleccionado);
+        if (l == null) {
+            l = new Revista(null, 0, 0, null);
+            Archivo.getDatos().getItems().add(l);
+        }
+        ListaCategoria lc = Archivo.getDatos().getCategorias();
+        for (Categoria c : lc) {
+            l.borrarCategoria(c);
+        }
+        for (Object c : lstCategoriasSeleccionar.getSelectedValuesList()) {
+            l.agregarCategoria((Categoria) c);
+        }
+        l.setTitulo(txtRevistaNombre.getText());
+        l.setAno(new Integer(txtRevistaAno.getText()));
+        l.setNumero(new Integer(txtRevistaNumero.getText()));
+        l.setEditorial(txtRevistaEditorial.getText());
+        Archivo.guardar();
+        btnGuardarRevista.setEnabled(false);
+        actualizar();
+    }//GEN-LAST:event_btnGuardarRevistaActionPerformed
+
+    private void btnAgregarAudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAudioActionPerformed
+        // TODO add your handling code here:
+        itemSeleccionado = null;
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarDato.setEnabled(false);
+        btnAgregarPistas.setEnabled(false);
+        btnEliminarPistas.setEnabled(false);
+
+        btnGuardarAudio.setEnabled(true);
+    }//GEN-LAST:event_btnAgregarAudioActionPerformed
+
+    private void btnGuardarAudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAudioActionPerformed
+        // TODO add your handling code here:
+        Audio l = (Audio) (itemSeleccionado);
+        if (l == null) {
+            try {
+                l = new Audio(null, null, null, "10/10/2014");
+            } catch (ParseException ex) {
+                Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Archivo.getDatos().getItems().add(l);
+        }
+        ListaCategoria lc = Archivo.getDatos().getCategorias();
+        for (Categoria c : lc) {
+            l.borrarCategoria(c);
+        }
+        for (Object c : lstCategoriasSeleccionar.getSelectedValuesList()) {
+            l.agregarCategoria((Categoria) c);
+        }
+        l.setTitulo(txtAudioTitulo.getText());
+        l.setInterprete(txtAudioInterprete.getText());
+        try {
+            l.setFechaLanzamiento(txtAudioLanzamiento.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        l.setDiscografica(txtAudioDiscografica.getText());
+        Archivo.guardar();
+        btnGuardarAudio.setEnabled(false);
+        btnAgregarPistas.setEnabled(true);
+        btnEliminarPistas.setEnabled(true);
+        itemSeleccionado = l;
+        actualizar();
+    }//GEN-LAST:event_btnGuardarAudioActionPerformed
+
+    private void btnAgregarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPeliculaActionPerformed
+        // TODO add your handling code here:
+        itemSeleccionado = null;
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarDato.setEnabled(false);
+
+        btnGuardarPelicula.setEnabled(true);
+    }//GEN-LAST:event_btnAgregarPeliculaActionPerformed
+
+    private void btnGuardarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPeliculaActionPerformed
+        // TODO add your handling code here:
+        Pelicula l = (Pelicula) (itemSeleccionado);
+        if (l == null) {
+            try {
+                l = new Pelicula(null, 0, "10/10/2014", TipoDisco.DVD);
+            } catch (ParseException ex) {
+                Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Archivo.getDatos().getItems().add(l);
+        }
+        ListaCategoria lc = Archivo.getDatos().getCategorias();
+        for (Categoria c : lc) {
+            l.borrarCategoria(c);
+        }
+        for (Object c : lstCategoriasSeleccionar.getSelectedValuesList()) {
+            l.agregarCategoria((Categoria) c);
+        }
+        l.setTitulo(txtPeliculaNombre.getText());
+        l.setDuracion(new Integer(txtPeliculaDuracion.getText()));
+        try {
+            l.setFechaEstreno(txtPeliculaLanzamiento.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Archivo.guardar();
+        btnGuardarPelicula.setEnabled(false);
+        actualizar();
+    }//GEN-LAST:event_btnGuardarPeliculaActionPerformed
+
+    private void btnAgregarDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDatoActionPerformed
+        // TODO add your handling code here:
+        itemSeleccionado = null;
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarDato.setEnabled(false);
+
+        btnGuardarDato.setEnabled(true);
+    }//GEN-LAST:event_btnAgregarDatoActionPerformed
+
+    private void btnGuardarDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDatoActionPerformed
+        // TODO add your handling code here:
+        Dato l = (Dato) (itemSeleccionado);
+        if (l == null) {
+            l = new Dato(null, TipoDisco.DVD);
+            Archivo.getDatos().getItems().add(l);
+        }
+        ListaCategoria lc = Archivo.getDatos().getCategorias();
+        for (Categoria c : lc) {
+            l.borrarCategoria(c);
+        }
+        for (Object c : lstCategoriasSeleccionar.getSelectedValuesList()) {
+            l.agregarCategoria((Categoria) c);
+        }
+        l.setTitulo(txtDatoNombre.getText());
+        Archivo.guardar();
+        btnGuardarDato.setEnabled(false);
+        actualizar();
+    }//GEN-LAST:event_btnGuardarDatoActionPerformed
+
+    private void txtDatoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDatoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDatoNombreActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        actualizar();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnAgregarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCapituloActionPerformed
+        // TODO add your handling code here:
+        if (itemSeleccionado != null) {
+            if (itemSeleccionado instanceof Libro) {
+                Libro l = (Libro) itemSeleccionado;
+                l.getCapitulos().add(new Capitulo(txtCapitulo.getText()));
+                actualizarCapitulos(l);
+                Archivo.guardar();
+            }
+        }
+    }//GEN-LAST:event_btnAgregarCapituloActionPerformed
+
+    private void btnEliminarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCapituloActionPerformed
+        // TODO add your handling code here:
+        if (itemSeleccionado != null && itemSeleccionado instanceof Libro) {
+            Capitulo c = (Capitulo) lstCapitulos.getSelectedValue();
+            if (c != null) {
+                ((Libro) itemSeleccionado).borrarCapitulo(c);
+                //Archivo.getDatos().getCapitulos().remove(c);
+                Archivo.guardar();
+                actualizarCapitulos((Libro) itemSeleccionado);
+            }
+        }
+    }//GEN-LAST:event_btnEliminarCapituloActionPerformed
+
+    private void btnAgregarPistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPistasActionPerformed
+        // TODO add your handling code here:
+        if (itemSeleccionado != null) {
+            if (itemSeleccionado instanceof Audio) {
+                Audio l = (Audio) itemSeleccionado;
+                l.getPistas().add(new Pista(txtPista.getText()));
+                actualizarPistas(l);
+                Archivo.guardar();
+            }
+        }
+    }//GEN-LAST:event_btnAgregarPistasActionPerformed
+
+    private void btnEliminarPistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPistasActionPerformed
+        // TODO add your handling code here:
+        if (itemSeleccionado != null && itemSeleccionado instanceof Audio) {
+            Pista c = (Pista) lstPistas.getSelectedValue();
+            if (c != null) {
+                ((Audio) itemSeleccionado).borrarPista(c);
+                //Archivo.getDatos().getPistas().remove(c);
+                Archivo.guardar();
+                actualizarPistas((Audio) itemSeleccionado);
+            }
+        }
+    }//GEN-LAST:event_btnEliminarPistasActionPerformed
+
+    private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
+        // TODO add your handling code here:
+
+        btnGuardarLibro.setEnabled(false);
+        btnGuardarRevista.setEnabled(false);
+        btnGuardarAudio.setEnabled(false);
+        btnGuardarPelicula.setEnabled(false);
+        btnGuardarDato.setEnabled(false);
+        btnAgregarCapitulo.setEnabled(false);
+        btnEliminarCapitulo.setEnabled(false);
+        btnAgregarPistas.setEnabled(false);
+        btnEliminarPistas.setEnabled(false);
+
+        if (itemSeleccionado != null && itemSeleccionado instanceof Item) {
+
+            int n = JOptionPane.showConfirmDialog(null, "Esta seguro que quiete eliminar el " + itemSeleccionado.getClass().getSimpleName(), "Eliminar fila", JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                for (Categoria c : itemSeleccionado.getCategorias()) {
+                    itemSeleccionado.borrarCategoria(c);
+                }
+                Archivo.getDatos().getItems().remove(itemSeleccionado);
+                Archivo.guardar();
+                itemSeleccionado = null;
+                actualizar();
+            }
+        }
+
+    }//GEN-LAST:event_btnEliminarItemActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        JFileChooser filechooser = new JFileChooser();
+        int returnVal = filechooser.showSaveDialog(null);
+        File file = filechooser.getSelectedFile();
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            new Exportar(file.getAbsoluteFile().toString());
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
+        // TODO add your handling code here:
+        JFileChooser filechooser = new JFileChooser();
+        int returnVal = filechooser.showOpenDialog(null);
+        File file = filechooser.getSelectedFile();
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            new Importar(file.getAbsoluteFile().toString());
+            actualizar();
+            cargarCategorias();
+            Archivo.guardar();
+        }
+    }//GEN-LAST:event_btnImportarActionPerformed
+
+    private void actualizarCapitulos(Libro libro) {
+        ListaModeloCapitulos lmc = new ListaModeloCapitulos(libro.getCapitulos());
+        lstCapitulos.setModel(lmc);
+    }
+
+    private void actualizarPistas(Audio audio) {
+        ListaModeloPistas lmc = new ListaModeloPistas(audio.getPistas());
+        lstPistas.setModel(lmc);
+    }
 
     /**
      * @param args the command line arguments
@@ -494,39 +1349,96 @@ public class MainWindows extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarAudio;
+    private javax.swing.JButton btnAgregarCapitulo;
     private javax.swing.JButton btnAgregarCategoria;
+    private javax.swing.JButton btnAgregarDato;
     private javax.swing.JButton btnAgregarLibro;
+    private javax.swing.JButton btnAgregarPelicula;
+    private javax.swing.JButton btnAgregarPistas;
+    private javax.swing.JButton btnAgregarRevista;
+    private javax.swing.JButton btnEliminarCapitulo;
     private javax.swing.JButton btnEliminarCategoria;
+    private javax.swing.JButton btnEliminarItem;
+    private javax.swing.JButton btnEliminarPistas;
+    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnGuardarAudio;
+    private javax.swing.JButton btnGuardarDato;
     private javax.swing.JButton btnGuardarLibro;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton btnGuardarPelicula;
+    private javax.swing.JButton btnGuardarRevista;
+    private javax.swing.JButton btnImportar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAgregarCategorias;
     private javax.swing.JPanel jPanelAudio;
     private javax.swing.JPanel jPanelBuscar;
     private javax.swing.JPanel jPanelCategorias;
-    private javax.swing.JPanel jPanelDVD;
+    private javax.swing.JPanel jPanelCategoriasSeleccionar;
+    private javax.swing.JPanel jPanelDatos;
     private javax.swing.JPanel jPanelItems;
     private javax.swing.JPanel jPanelLibro;
+    private javax.swing.JPanel jPanelPelicula;
     private javax.swing.JPanel jPanelRevista;
+    private javax.swing.JPanel jPanelTable;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneCategorias;
     private javax.swing.JScrollPane jScrollPaneCategoriasSeleccionar;
     private javax.swing.JScrollPane jScrollPaneItems;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPaneMain;
     private javax.swing.JSplitPane jSplitPaneSecondary;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JToolBar jToolBar5;
+    private javax.swing.JToolBar jToolBar6;
+    private javax.swing.JToolBar jToolBar7;
+    private javax.swing.JLabel lblAudioDiscografica;
+    private javax.swing.JLabel lblAudioInterprete;
+    private javax.swing.JLabel lblAudioLanzamiento;
+    private javax.swing.JLabel lblAudioTitulo;
     private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblDatoNombre;
     private javax.swing.JLabel lblEditorial;
     private javax.swing.JLabel lblLibroAutor;
     private javax.swing.JLabel lblLibroTitulo;
+    private javax.swing.JLabel lblPeliculaDuracion;
+    private javax.swing.JLabel lblPeliculaLanzamiento;
+    private javax.swing.JLabel lblPeliculaNombre;
+    private javax.swing.JLabel lblPistas;
+    private javax.swing.JLabel lblRevistaAno;
+    private javax.swing.JLabel lblRevistaEditorial;
+    private javax.swing.JLabel lblRevistaNombre;
+    private javax.swing.JLabel lblRevistaNumero;
+    private javax.swing.JList lstCapitulos;
     private javax.swing.JList lstCategorias;
     private javax.swing.JList lstCategoriasSeleccionar;
+    private javax.swing.JList lstPistas;
     private javax.swing.JTable tblItems;
     private javax.swing.JTextField txtAgregarCategoria;
+    private javax.swing.JTextField txtAudioDiscografica;
+    private javax.swing.JTextField txtAudioInterprete;
+    private javax.swing.JTextField txtAudioLanzamiento;
+    private javax.swing.JTextField txtAudioTitulo;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCapitulo;
+    private javax.swing.JTextField txtDatoNombre;
     private javax.swing.JTextField txtLibroAutor;
     private javax.swing.JTextField txtLibroEditorial;
     private javax.swing.JTextField txtLibroTitulo;
+    private javax.swing.JTextField txtPeliculaDuracion;
+    private javax.swing.JTextField txtPeliculaLanzamiento;
+    private javax.swing.JTextField txtPeliculaNombre;
+    private javax.swing.JTextField txtPista;
+    private javax.swing.JTextField txtRevistaAno;
+    private javax.swing.JTextField txtRevistaEditorial;
+    private javax.swing.JTextField txtRevistaNombre;
+    private javax.swing.JTextField txtRevistaNumero;
     // End of variables declaration//GEN-END:variables
 }

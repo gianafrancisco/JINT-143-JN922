@@ -1,16 +1,17 @@
 package biblioteca.builder;
 
-import biblioteca.cats.Categoria;
+import biblioteca.items.Capitulo;
+
 
 /**
  * Created by francisco on 15/11/14.
  */
-public class CategoriaBuilder {
-    public static Categoria getCategoriaFromString(String categoria){
-        Categoria cat=null;
-        String str[] = categoria.split(",");
+public class CapituloBuilder {
+    public static Capitulo getCapituloFromString(String capitulo){
+        Capitulo cat=null;
+        String str[] = capitulo.split(",");
         if(str.length == 2)
-            return new Categoria(str[1]);
+            return new Capitulo(str[1]);
         else
             return null;
     }

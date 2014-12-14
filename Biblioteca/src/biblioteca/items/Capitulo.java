@@ -1,6 +1,9 @@
 package biblioteca.items;
 
-public class Capitulo {
+import biblioteca.interfaces.Exportable;
+import java.io.Serializable;
+
+public class Capitulo implements Serializable, Exportable {
 
     private String nombre;
 
@@ -14,15 +17,20 @@ public class Capitulo {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof String){
-            String buscar = (String)obj;
+        if (obj instanceof String) {
+            String buscar = (String) obj;
             return nombre.toLowerCase().contains(buscar.toLowerCase());
-        }else {
+        } else {
             return super.equals(obj);
         }
     }
 
-    public String toString(){
-        return " { nombre="+nombre+" } ";
+    public String toString() {
+        return nombre;
+    }
+
+    @Override
+    public String exportar() {
+        return "CAPITULO," + nombre + System.getProperty("line.separator");
     }
 }

@@ -5,12 +5,18 @@
  */
 package biblioteca.persistencia;
 
+import biblioteca.builder.CapituloBuilder;
 import biblioteca.builder.CategoriaBuilder;
 import biblioteca.builder.ItemBuilder;
+import biblioteca.builder.PistaBuilder;
 import biblioteca.cats.Categoria;
-import biblioteca.cats.ListaCategoria;
-import biblioteca.cats.ListaItem;
+import biblioteca.list.ListaCategoria;
+import biblioteca.list.ListaItem;
+import biblioteca.items.Audio;
+import biblioteca.items.Capitulo;
 import biblioteca.items.Item;
+import biblioteca.items.Libro;
+import biblioteca.items.Pista;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -61,8 +67,18 @@ public class Importar {
                     item = ItemBuilder.getPeliculaFromString(line);
                 } else if (line.contains("AUDIO")) {
                     item = ItemBuilder.getAudioFromString(line);
+                }else if (line.contains("CAPITULO")) {
+                    Capitulo c = CapituloBuilder.getCapituloFromString(line);
+                    if(item instanceof Libro){
+                        ((Libro)item).agregarCapitulo(c);
+                    }
+                }else if (line.contains("PISTA")) {
+                    Pista p = PistaBuilder.getPistaFromString(line);
+                    if(item instanceof Audio){
+                        ((Audio)item).agregarPista(p);
+                    }
                 }
-                if (item != null && !line.contains("CATEGORIA")) {
+                if (item != null && !line.contains("CATEGORIA") && !line.contains("PISTA") && !line.contains("CAPITULO")) {
                     mItems.add(item);
                 }
                 line = fbr.readLine();

@@ -1,5 +1,6 @@
-package biblioteca.cats;
+package biblioteca.list;
 
+import biblioteca.cats.Categoria;
 import java.io.Serializable;
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package biblioteca.cats;
+package biblioteca.list;
 
 import biblioteca.items.Item;
 import java.io.Serializable;

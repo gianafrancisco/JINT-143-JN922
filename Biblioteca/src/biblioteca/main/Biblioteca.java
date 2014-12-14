@@ -3,7 +3,7 @@ package biblioteca.main;
 import biblioteca.builder.CategoriaBuilder;
 import biblioteca.builder.ItemBuilder;
 import biblioteca.cats.Categoria;
-import biblioteca.cats.ListaCategoria;
+import biblioteca.list.ListaCategoria;
 import biblioteca.items.Item;
 import biblioteca.items.Libro;
 import biblioteca.items.Revista;
@@ -114,7 +114,7 @@ public class Biblioteca {
                         String nombre=Consola.readLine();
                         System.out.print("Ingrese el nombre de la editorial: ");
                         String editorial=Consola.readLine();
-                        Revista item = new Revista(nombre,editorial);
+                        Revista item = new Revista(nombre,2014,1,editorial);
                         item.agregarCategoria(listadoCategorias.get(0)); // Agregamos a la categoria por defecto
                         System.out.println("Ingrese la categoria de la revista");
                         int op;

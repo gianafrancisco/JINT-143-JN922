@@ -6,7 +6,7 @@
 package biblioteca.persistencia;
 
 import biblioteca.cats.Categoria;
-import biblioteca.cats.ListaCategoria;
+import biblioteca.list.ListaCategoria;
 import biblioteca.items.Item;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,9 +38,8 @@ public class Exportar {
         try {
             fw = new FileWriter(fo);
             out = new PrintWriter(new BufferedWriter(fw));
-            Categoria def = mCategorias.get(0);
-            for (Item i : def) {
-                fw.write(i.exportar() + newline);
+            for (Item i : Archivo.getDatos().getItems()) {
+                fw.write(i.exportar());
                 for (Categoria c : i.getCategorias()) {
                     fw.write(c.exportar() + newline);
                 }

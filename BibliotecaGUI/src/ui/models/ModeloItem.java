@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloItem extends AbstractTableModel
 {
 
-    private String[] mColumnas = {"Titulo", "Tipo"};
+    private String[] mColumnas = {"Titulo", "Tipo","Datos Extras"};
     private LinkedList<Item> mItems;
 
     public ModeloItem()
@@ -52,6 +52,9 @@ public class ModeloItem extends AbstractTableModel
                     break;
                 case 1:
                     res = aux.getClass().getSimpleName();
+                    break;
+                case 2:
+                    res = aux.toString();
                     break;
             }
         }

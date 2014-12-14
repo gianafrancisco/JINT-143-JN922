@@ -14,14 +14,12 @@ public class ItemBuilder {
     public static Libro getLibroFromString(String line){
         String s[] = line.split(",");
         Libro l= new Libro(s[1],s[2],s[3]);
-        l.setPrologo(s[4]);
         return l;
     }
     public static Revista getRevistaFromString(String line){
         Revista r=null;
         String s[] = line.split(",");
-        r=new Revista(s[1],s[2]);
-        r.setNotaAutor(s[3]);
+        r=new Revista(s[4], new Integer(s[2]),new Integer(s[3]), s[1]);
         return r;
     }
 

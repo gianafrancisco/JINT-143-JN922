@@ -1,28 +1,22 @@
 package biblioteca.items;
 
-import biblioteca.cats.Categoria;
-
-import java.util.LinkedList;
+import biblioteca.list.ListaCapitulos;
 
 public class Libro extends Item {
 
-    private LinkedList<Capitulo> capitulos;
-
+    private ListaCapitulos capitulos;
     private String editorial;
-
-    private String prologo;
-
     private String autor;
 
-    public void agregarCapitulo( Capitulo capitulo) {
+    public void agregarCapitulo(Capitulo capitulo) {
         capitulos.add(capitulo);
     }
 
-    public boolean buscar( String buscar) {
-        String buscarLower=buscar.toLowerCase();
-        boolean res=editorial.toLowerCase().contains(buscarLower) | prologo.toLowerCase().contains(buscarLower) | autor.toLowerCase().contains(buscarLower) | getTitulo().toLowerCase().contains(buscarLower);
-        for(Capitulo c: capitulos){
-            res|=c.equals(buscar);
+    public boolean buscar(String buscar) {
+        String buscarLower = buscar.toLowerCase();
+        boolean res = editorial.toLowerCase().contains(buscarLower) |  autor.toLowerCase().contains(buscarLower) | getTitulo().toLowerCase().contains(buscarLower);
+        for (Capitulo c : capitulos) {
+            res |= c.equals(buscar);
         }
         return res;
     }
@@ -31,18 +25,8 @@ public class Libro extends Item {
         super(titulo);
         this.autor = autor;
         this.editorial = editorial;
-        this.prologo="";
-        this.capitulos= new LinkedList<Capitulo>();
+        this.capitulos = new ListaCapitulos();
     }
-
-    public String getPrologo() {
-        return prologo;
-    }
-
-    public void setPrologo(String prologo) {
-        this.prologo = prologo;
-    }
-
     public String getAutor() {
         return autor;
     }
@@ -51,18 +35,25 @@ public class Libro extends Item {
         return editorial;
     }
 
-    public LinkedList<Capitulo> getCapitulos() {
+    public ListaCapitulos getCapitulos() {
         return capitulos;
     }
 
-    public String toString(){
-        return " { titulo="+super.getTitulo()+", autor="+autor+", editorial="+editorial+" } ";
+    public String toString() {
+        return " { titulo=" + super.getTitulo() + ", autor=" + autor + ", editorial=" + editorial + " } ";
+    }
+
+    public void borrarCapitulo(Capitulo capitulo) {
+        capitulos.remove(capitulo);
     }
 
     @Override
     public String exportar() {
-        String strExportar="";
-        return "LIBRO,"+getTitulo()+","+autor+","+editorial+","+prologo;
+        String strExportar = "LIBRO," + getTitulo() + "," + autor + "," + editorial + System.getProperty("line.separator");
+        for (Capitulo c : capitulos) {
+            strExportar+=c.exportar();
+        }
+        return strExportar;
     }
 
     public void setEditorial(String editorial) {
@@ -72,7 +63,5 @@ public class Libro extends Item {
     public void setAutor(String autor) {
         this.autor = autor;
     }
-    
-    
-    
+
 }

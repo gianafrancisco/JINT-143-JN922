@@ -12,7 +12,7 @@ public class Dato extends Disco {
     }
     @Override
     public String exportar() {
-        return null;
+        return "DATO,"+getTitulo()+","+getTipoDisco()+System.getProperty("line.separator");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package biblioteca.cats;
 
+import biblioteca.list.ListaItem;
 import java.io.Serializable;
 import java.util.ArrayList;
 
