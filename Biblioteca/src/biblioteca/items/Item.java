@@ -47,7 +47,12 @@ public abstract class Item implements Serializable, Exportable {
     }
 
     public ListaCategoria getCategorias() {
-        return lc;
+        ListaCategoria lcc = new ListaCategoria();
+        for(Categoria l: lc){
+            lcc.add(l);
+            
+        }
+        return lcc;
     }
 
     public void setTitulo(String titulo) {

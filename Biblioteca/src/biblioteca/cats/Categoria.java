@@ -24,9 +24,9 @@ public class Categoria extends ListaItem implements Serializable {
     @Override
     public boolean equals(Object o) {
         if(o instanceof String){
-            return nombre.toLowerCase().contains(((String) o).toLowerCase());
+            return nombre.toLowerCase().equals(((String) o).toLowerCase());
         }else if(o instanceof Categoria){
-            return nombre.toLowerCase().contains(((Categoria) o).nombre.toLowerCase());
+            return nombre.toLowerCase().equals(((Categoria) o).nombre.toLowerCase());
         }else
             return super.equals(o);
     }

@@ -19,7 +19,6 @@ import biblioteca.items.Revista;
 import biblioteca.persistencia.Archivo;
 import biblioteca.persistencia.Exportar;
 import biblioteca.persistencia.Importar;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,10 +27,6 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import org.jdatepicker.DateModel;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 import ui.models.ListaModeloCapitulos;
 import ui.models.ListaModeloCategorias;
 import ui.models.ListaModeloPistas;
@@ -900,7 +895,7 @@ public class MainWindows extends javax.swing.JFrame {
     private void btnAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaActionPerformed
         // TODO add your handling code here:
         if (!txtAgregarCategoria.getText().equals("") && Archivo.getDatos().getCategorias().filtrar(txtAgregarCategoria.getText()).size() == 0) {
-            Archivo.getDatos().getCategorias().add(new Categoria(txtAgregarCategoria.getText()));
+            Archivo.getDatos().getCategorias().add(new Categoria(txtAgregarCategoria.getText().trim()));
             cargarCategorias();
             Archivo.guardar();
         }
